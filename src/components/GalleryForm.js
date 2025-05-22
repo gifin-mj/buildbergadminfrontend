@@ -40,7 +40,7 @@
 // }
 
 // export default GalleryForm;
-import { useState, useEffect } from 'react';
+/*import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import API from '../api';
 
@@ -128,8 +128,8 @@ function GalleryForm({ onUpload }) {
   );
 }
 
-export default GalleryForm;
-/*
+export default GalleryForm;*/
+
 import { useEffect, useState } from 'react';
 import API from '../api';
 
@@ -191,4 +191,3 @@ function GalleryForm({ onUpload, editItem }) {
 export default GalleryForm;
 
 
-*/
