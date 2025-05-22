@@ -129,3 +129,66 @@ function GalleryForm({ onUpload }) {
 }
 
 export default GalleryForm;
+/*
+import { useEffect, useState } from 'react';
+import API from '../api';
+
+function GalleryForm({ onUpload, editItem }) {
+  const [formData, setFormData] = useState({
+    name: '', date: '', status: '', sizeSqFt: '', clientDetails: ''
+  });
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    if (editItem) {
+      setFormData({
+        name: editItem.name,
+        date: editItem.date?.split('T')[0] || '',
+        status: editItem.status,
+        sizeSqFt: editItem.sizeSqFt,
+        clientDetails: editItem.clientDetails,
+      });
+    }
+  }, [editItem]);
+
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    Object.entries(formData).forEach(([key, val]) => data.append(key, val));
+    images.forEach((img) => data.append('images', img));
+
+    if (editItem) {
+      await API.patch(`/gallery/${editItem._id}`, data); // 👈 PATCH if editing
+    } else {
+      await API.post('/gallery', data); // 👈 POST if new
+    }
+
+    setFormData({ name: '', date: '', status: '', sizeSqFt: '', clientDetails: '' });
+    setImages([]);
+    onUpload();
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input name="name" placeholder="Project Name" value={formData.name} onChange={handleChange} required />
+      <input name="date" type="date" value={formData.date} onChange={handleChange} required />
+      <select name="status" value={formData.status} onChange={handleChange} required>
+        <option>Select Status</option>
+        <option value="Ongoing">Ongoing</option>
+        <option value="Upcoming">Upcoming</option>
+        <option value="Completed">Completed</option>
+      </select>
+      <input name="sizeSqFt" placeholder="SqFt Size" value={formData.sizeSqFt} onChange={handleChange} required />
+      <input name="clientDetails" placeholder="Client" value={formData.clientDetails} onChange={handleChange} required />
+      <input type="file" multiple onChange={(e) => setImages(Array.from(e.target.files))} />
+      <button type="submit">{editItem ? 'Update Project' : 'Upload Project'}</button>
+    </form>
+  );
+}
+
+export default GalleryForm;
+
+
+*/
