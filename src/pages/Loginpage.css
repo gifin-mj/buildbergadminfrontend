@@ -15,7 +15,7 @@
       font-family: 'Poppins', sans-serif;
 }
 
-.container {
+.logincontainer {
     width:350px ;
     height:450px ;
     background: rgb(15, 15, 15);
@@ -36,11 +36,11 @@
     margin: .2em 0;
 }
 
-.container .box p {
+.logincontainer .box p {
     color: rgba(255, 255, 255, 0.781);
 }
 
-.container .box div {
+.logincontainer .box div {
     width: 100%;
     height: 40px;
     position: relative;
@@ -48,7 +48,7 @@
 
 }
 
-.container .box input {
+.logincontainer .box .logininput {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -59,13 +59,15 @@
     color: #fff;
     border-radius: 10px;
     transition: all 0.4s;
+   
+    margin:0px ;
 }
 
-.container .box input:focus::placeholder {
+.logincontainer .box .logininput:focus::placeholder {
     color: #ffffff;
 }
 
-.container .box div::before {
+.logincontainer .box div::before {
     content: '';
     position: absolute;
     top: 50%;

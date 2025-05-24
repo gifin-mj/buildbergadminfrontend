@@ -37,7 +37,7 @@ function LoginPage() {
     //   </form>
     // </div>
     <section className="loginpage">
-      <div className="container">
+      <div className="logincontainer">
         <form onSubmit={handleLogin}>
           <p className="headline">Admin Login</p>
 
@@ -45,6 +45,7 @@ function LoginPage() {
             <p>Username</p>
             <div>
               <input
+              className='logininput'
                 type="text"
                 placeholder="Enter your Username"
                 value={username}
@@ -58,6 +59,7 @@ function LoginPage() {
             <p>Password</p>
             <div style={{ position: "relative" }}>
               <input
+              className='logininput'
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your Password"
                 value={password}

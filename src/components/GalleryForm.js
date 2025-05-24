@@ -1,72 +1,3 @@
-// import { useEffect, useState } from 'react';
-// import API from '../api';
-// import './GalleryForm.css'
-
-// function GalleryForm({ onUpload, editItem }) {
-//   const [formData, setFormData] = useState({
-//     name: '', date: '', status: '', sizeSqFt: '', clientDetails: ''
-//   });
-//   const [images, setImages] = useState([]);
-
-//   useEffect(() => {
-//     if (editItem) {
-//       setFormData({
-//         name: editItem.name,
-//         date: editItem.date?.split('T')[0] || '',
-//         status: editItem.status,
-//         sizeSqFt: editItem.sizeSqFt,
-//         clientDetails: editItem.clientDetails,
-//       });
-//     }
-//   }, [editItem]);
-
-//   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     const data = new FormData();
-//     Object.entries(formData).forEach(([key, val]) => data.append(key, val));
-//     images.forEach((img) => data.append('images', img));
-
-//     if (editItem) {
-//       await API.patch(`/gallery/${editItem._id}`, data); // 👈 PATCH if editing
-//     } else {
-//       await API.post('/gallery', data); // 👈 POST if new
-//     }
-
-//     setFormData({ name: '', date: '', status: '', sizeSqFt: '', clientDetails: '' });
-//     setImages([]);
-//     onUpload();
-//   };
-
-//   return (
-//     <div className='gallerform'>
-//       <h1 className='formheading'>{editItem ? 'Update Project' : 'Add New Project'} </h1>
-//       <form onSubmit={handleSubmit}>
-//       <div className='details'>
-//       <input name="name" placeholder="Project Name" value={formData.name} onChange={handleChange} required />
-//       <input name="date" title='Date Commenced' type="date" value={formData.date} onChange={handleChange} required />
-    
-//       <input name="sizeSqFt" placeholder="SqFt Size" value={formData.sizeSqFt} onChange={handleChange} required />
-//       <input name="clientDetails" placeholder="Client" value={formData.clientDetails} onChange={handleChange} required />
-//       </div>
-//       <div className='selectimagesubmit'>
-//       <select name="status" value={formData.status} onChange={handleChange} required>
-//         <option>Select Status</option>
-//         <option value="Ongoing">Ongoing</option>
-//         <option value="Upcoming">Upcoming</option>
-//         <option value="Completed">Completed</option>
-//       </select>
-//       <input type="file" multiple onChange={(e) => setImages(Array.from(e.target.files))} />
-//       <button className='submitbtn' type="submit">{editItem ? 'Update' : 'Save'}</button>
-//       </div>
-//     </form>
-//     </div>
-    
-//   );
-// }
-
-// export default GalleryForm;
 import { useEffect, useState } from 'react';
 import API from '../api';
 import './GalleryForm.css';
@@ -132,32 +63,36 @@ function GalleryForm({ onUpload, editItem }) {
       <h1 className='formheading'>{editItem ? 'Update Project' : 'Add New Project'}</h1>
       <form onSubmit={handleSubmit}>
         <div className='details'>
-          <input name="name" placeholder="Project Name" value={formData.name} onChange={handleChange} required />
-          <input name="date" title='Date Commenced' type="date" value={formData.date} onChange={handleChange} required />
-          <input name="sizeSqFt" placeholder="SqFt Size" value={formData.sizeSqFt} onChange={handleChange} required />
-          <input name="clientDetails" placeholder="Client" value={formData.clientDetails} onChange={handleChange} required />
+          <input name="name" title='Enter Name of The Project' placeholder="Enter Project Name" value={formData.name} onChange={handleChange} required />
+          <input name="date" title='Select Date Commenced' type="date" value={formData.date} onChange={handleChange} required />
+          <input name="clientDetails" title='Enter Name of The Client' placeholder="Enter Your Client Name" value={formData.clientDetails} onChange={handleChange} required />
         </div>
 
-        <div className='selectimagesubmit'>
-          <select name="status" value={formData.status} onChange={handleChange} required>
-            <option>Select Status</option>
-            <option value="Ongoing">Ongoing</option>
-            <option value="Upcoming">Upcoming</option>
-            <option value="Completed">Completed</option>
-          </select>
-
-          <input type="file" multiple accept="image/*" onChange={handleImageChange} />
-
-          {/* Image previews with remove button */}
-          <div className="image-preview-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '10px' }}>
-            {images.map(({ preview }, index) => (
+        
+{/* Image previews with remove button */}
+          <div style={{display:'flex'}}>
+          
+          <br/><br/>
+          <div className="image-preview-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+            {
+            images.length == 0 
+            ? 
+            <img
+            src=''
+            alt={`Select Project Images`}
+            style={{ width: '250px' }}
+          />
+            :
+            images.map(({ preview }, index) => (
               <div key={index} style={{ position: 'relative' }}>
                 <img
                   src={preview}
                   alt={`Preview ${index}`}
-                  style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px' }}
+                  style={{ width: '70px' }}
                 />
+                
                 <button
+                title='Deselect the Image'
                   type="button"
                   onClick={() => handleRemoveImage(index)}
                   style={{
@@ -179,7 +114,19 @@ function GalleryForm({ onUpload, editItem }) {
               </div>
             ))}
           </div>
+          </div>
+          <input type="file" title='Select Project Images ' multiple accept="image/*" id='File1' onChange={handleImageChange} />
 
+          
+          
+          <div className='selectimagesubmit'>
+          <input name="sizeSqFt" title='Enter the size of the project in Sqft' placeholder="Enter Project Size (SqFt)" value={formData.sizeSqFt} onChange={handleChange} required />
+          <select name="status" title='Select the Status of the Project' value={formData.status} onChange={handleChange} required>
+            <option>Select Project Status</option>
+            <option value="Ongoing">Ongoing</option>
+            <option value="Upcoming">Upcoming</option>
+            <option value="Completed">Completed</option>
+          </select>
           <button className='submitbtn' type="submit">
             {editItem ? 'Update' : 'Save'}
           </button>

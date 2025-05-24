@@ -12,7 +12,7 @@
 .details{
 
     display: flex;
-    gap: .2rem;
+    gap: 1rem;
 }
 @media only screen and (max-width: 950px) {
     .details{
@@ -26,7 +26,7 @@
     }
 }
 
-.details input{
+ input{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -37,9 +37,9 @@
 }
 .selectimagesubmit{
     display: flex;
-    gap: .2rem;
+    gap: 1rem;
 }
-.selectimagesubmit select {
+select {
    width: 70%;
     padding: 16px 20px;
     border: none;
@@ -55,13 +55,14 @@
     background: #fff;
     border-radius: 4px;
     border: 1px solid #555;
-    margin: 8px 0;
+    margin-top: 0px;
+    margin-bottom: 8px;
+   
   }
   input[type=file]::file-selector-button {
     
     margin-right: 20px;
-    border: none;
-    background: #084cdf;
+    background: #272a31;
     padding: 10px 20px;
     border-radius: 10px;
     color: #fff;
@@ -70,7 +71,7 @@
   }
   
   input[type=file]::file-selector-button:hover {
-    background: #0d45a5;
+    background: rgb(0, 0, 0)
   }
 .submitbtn{
     position: relative;
