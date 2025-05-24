@@ -1,0 +1,112 @@
+@import url('https://fonts.cdnfonts.com/css/expletus-sans-2');
+
+.gallerform{
+    padding: 1%;
+    border: solid white 1px;
+}
+.formheading{
+    font-family: 'Expletus Sans', sans-serif;
+    text-align: center;
+                                                
+}
+.details{
+
+    display: flex;
+    gap: .2rem;
+}
+@media only screen and (max-width: 950px) {
+    .details{
+
+        display: grid;
+        gap: .2rem;
+    }
+    .selectimagesubmit{
+        display: grid;
+        gap: .2rem;
+    }
+}
+
+.details input{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.selectimagesubmit{
+    display: flex;
+    gap: .2rem;
+}
+.selectimagesubmit select {
+   width: 70%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    margin: 8px 0;
+  }
+  input[type=file] {
+    width: 100%;
+    max-width: 100%;
+    color: #444;
+    padding: 5px;
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid #555;
+    margin: 8px 0;
+  }
+  input[type=file]::file-selector-button {
+    
+    margin-right: 20px;
+    border: none;
+    background: #084cdf;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+  }
+  
+  input[type=file]::file-selector-button:hover {
+    background: #0d45a5;
+  }
+.submitbtn{
+    position: relative;
+    
+    width: 50%;
+    background-color: #f1f1f1;
+    color: black;
+    font-size: 16px;
+    padding: .8rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+.submitbtn:hover
+{
+    background-color: black;
+    color: white;
+}
+@media only screen and (max-width: 950px) {
+    .gallerform{
+        padding: 5%;
+    }
+    .details{
+
+        display: grid;
+        gap: .2rem;
+    }
+    .selectimagesubmit{
+        display: grid;
+        gap: .2rem;
+    }
+    .selectimagesubmit select{
+        width: 100%;
+    }
+    .submitbtn{
+        width: 100%; 
+    }
+}
