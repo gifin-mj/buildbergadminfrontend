@@ -61,13 +61,14 @@ function GalleryForm({ onUpload, editItem }) {
   return (
     <div className='gallerform'>
       <h1 className='formheading'>{editItem ? 'Update Project' : 'Add New Project'}</h1>
+      <br/><br/>
       <form onSubmit={handleSubmit}>
         <div className='details'>
           <input name="name" title='Enter Name of The Project' placeholder="Enter Project Name" value={formData.name} onChange={handleChange} required />
           <input name="date" title='Select Date Commenced' type="date" value={formData.date} onChange={handleChange} required />
           <input name="clientDetails" title='Enter Name of The Client' placeholder="Enter Your Client Name" value={formData.clientDetails} onChange={handleChange} required />
         </div>
-
+<br/>
         
 {/* Image previews with remove button */}
           <div style={{display:'flex'}}>
@@ -117,7 +118,7 @@ function GalleryForm({ onUpload, editItem }) {
           </div>
           <input type="file" title='Select Project Images ' multiple accept="image/*" id='File1' onChange={handleImageChange} />
 
-          
+          <br/><br/><br/>
           
           <div className='selectimagesubmit'>
           <input name="sizeSqFt" title='Enter the size of the project in Sqft' placeholder="Enter Project Size (SqFt)" value={formData.sizeSqFt} onChange={handleChange} required />
@@ -131,6 +132,7 @@ function GalleryForm({ onUpload, editItem }) {
             {editItem ? 'Update' : 'Save'}
           </button>
         </div>
+        <br/>  <br/>
       </form>
     </div>
   );

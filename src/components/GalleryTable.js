@@ -6,6 +6,8 @@ import './GalleryTable.css'
 function GalleryTable({ gallery, onUpdate, onEdit }) {
   const [search, setSearch] = useState('');
   const [filteredGallery, setFilteredGallery] = useState(gallery);
+  const [previewImage, setPreviewImage] = useState(null); // { url, galleryId }
+
 
   useEffect(() => {
     const result = gallery.filter(item =>
@@ -60,7 +62,13 @@ function GalleryTable({ gallery, onUpdate, onEdit }) {
         <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
           {row.images.map((url, i) => (
             <div key={i} style={{ position: 'relative' }}>
-              <img src={url} alt="img" style={{ width: 60, height: 60, objectFit: 'cover' }} />
+              <img
+  src={url}
+  alt="img"
+  style={{ width: 60, height: 60, objectFit: 'cover', cursor: 'pointer' }}
+  onClick={() => setPreviewImage({ url, galleryId: row._id })}
+/>
+
               <button
                 onClick={() => handleImageDelete(row._id, url)}
                 style={{
@@ -122,6 +130,28 @@ function GalleryTable({ gallery, onUpdate, onEdit }) {
         striped
         defaultSortFieldId={1}
       />
+      {previewImage && (
+  <div className="image-modal">
+    <div className="modal-content">
+      <img src={previewImage.url} alt="Preview" />
+      <div className="modal-buttons">
+        <button
+          onClick={() => {
+            handleImageDelete(previewImage.galleryId, previewImage.url);
+            setPreviewImage(null);
+          }}
+          className="delete-btn"
+        >
+          Delete Image
+        </button>
+        <button onClick={() => setPreviewImage(null)} className="close-btn">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
     </div>
   );

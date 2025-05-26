@@ -3,6 +3,8 @@
 .gallerform{
     padding: 1%;
     border: solid white 1px;
+    margin-top: 1%; 
+    margin-bottom: 1%; 
 }
 .formheading{
     font-family: 'Expletus Sans', sans-serif;
