@@ -75,8 +75,10 @@ function GalleryForm({ onUpload, editItem }) {
       const response= await API.delete(`/gallery/${gallerid}/image`, {
       data: { imageUrl },
     });
-    alert(response.data.message)}
-     setImages((prev) => prev.filter((_, index) => index !== indexToRemove));
+    alert(response.data.message)
+    setImages((prev) => prev.filter((_, index) => index !== indexToRemove));
+  }
+     
     
     } catch (err) {
       console.error('Failed to delete image from S3:', err);
@@ -114,7 +116,7 @@ function GalleryForm({ onUpload, editItem }) {
     } else {
       try{
          const response = await API.post('/gallery', data);
-         
+         alert(response.data.message)
       }
       catch(err){
         console.log(err)

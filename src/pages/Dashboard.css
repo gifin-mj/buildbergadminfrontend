@@ -2,6 +2,7 @@
 .dashboard{
     background-color: rgb(53, 12, 39);
     color: white;
+    min-height: 100vh;
 }
 .header{
    
