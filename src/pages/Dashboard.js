@@ -119,6 +119,7 @@ function Dashboard() {
           <i className="fa-solid fa-right-from-bracket"></i> Logout
         </button>
       </div>
+      
 
       {/* VIEW SWITCHER */}
       {view === 'cards' && (

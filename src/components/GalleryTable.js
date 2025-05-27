@@ -19,15 +19,30 @@ function GalleryTable({ gallery, onUpdate, onEdit }) {
   }, [search, gallery]);
 
   const handleDelete = async (id) => {
-    await API.delete(`/gallery/${id}`);
-    onUpdate();
+    try{
+      let confirm=window.confirm("Are You Sure Want to Delete ?")
+      if(confirm){
+       const response= await API.delete(`/gallery/${id}`);
+       alert(response.data.message)
+       onUpdate();
+      }
+    }
+    catch(err){
+      console.log(err)
+    }
+    
   };
 
   const handleImageDelete = async (galleryId, imageUrl) => {
-    await API.delete(`/gallery/${galleryId}/image`, {
+    const confirm=window.confirm("Are you Sure ?")
+    if(confirm){
+      const response= await API.delete(`/gallery/${galleryId}/image`, {
       data: { imageUrl },
     });
+    alert(response.data.message)
     onUpdate();
+    }
+   
   };
 
   const columns = [

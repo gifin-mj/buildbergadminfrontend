@@ -4,21 +4,45 @@ import './GalleryForm.css';
 
 function GalleryForm({ onUpload, editItem }) {
   const [formData, setFormData] = useState({
+    galleryid:'',
     name: '', date: '', status: '', sizeSqFt: '', clientDetails: ''
   });
   const [images, setImages] = useState([]); // [{ file, preview }]
   
+  // useEffect(() => {
+  //   if (editItem) {
+      
+  //     setFormData({
+  //       name: editItem.name,
+  //       date: editItem.date?.split('T')[0] || '',
+  //       status: editItem.status,
+  //       sizeSqFt: editItem.sizeSqFt,
+  //       clientDetails: editItem.clientDetails,
+  //     });
+  //   }
+  // }, [editItem]);
   useEffect(() => {
-    if (editItem) {
-      setFormData({
-        name: editItem.name,
-        date: editItem.date?.split('T')[0] || '',
-        status: editItem.status,
-        sizeSqFt: editItem.sizeSqFt,
-        clientDetails: editItem.clientDetails,
-      });
-    }
-  }, [editItem]);
+  if (editItem) {
+    console.log(editItem);
+    
+    setFormData({
+      galleryId:editItem._id,
+      name: editItem.name || '',
+      date: editItem.date?.split('T')[0] || '',
+      status: editItem.status || '',
+      sizeSqFt: editItem.sizeSqFt || '',
+      clientDetails: editItem.clientDetails || '',
+    });
+
+    // Convert image URLs into preview objects (no file, just preview)
+    const existingImagePreviews = (editItem.images || []).map(url => ({
+      file: null, // to distinguish from newly uploaded files
+      preview: url,
+    }));
+    setImages(existingImagePreviews);
+  }
+}, [editItem]);
+
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
@@ -29,14 +53,45 @@ function GalleryForm({ onUpload, editItem }) {
     setImages((prev) => [...prev, ...newImages]);
   };
 
-  const handleRemoveImage = (indexToRemove) => {
-    setImages((prev) => {
-      const updated = prev.filter((_, index) => index !== indexToRemove);
-      // Cleanup object URL
-      URL.revokeObjectURL(prev[indexToRemove].preview);
-      return updated;
+//   const handleRemoveImage = (indexToRemove) => {
+//     // setImages((prev) => {
+//     //   const updated = prev.filter((_, index) => index !== indexToRemove);
+//     //   // Cleanup object URL
+//     //   URL.revokeObjectURL(prev[indexToRemove].preview);
+//     //   return updated;
+//     // });
+// }
+      
+    const handleRemoveImage = async (indexToRemove) => {
+    const imageToRemove = images[indexToRemove];
+    console.log(imageToRemove);
+  // If it's a previously uploaded image (from S3)
+  if (imageToRemove.file === null) {
+    try {
+      const imageUrl = new URL(imageToRemove.preview);
+      const confirm=window.confirm("Are you Sure ?")
+    if(confirm){
+      const gallerid=formData.galleryId
+      const response= await API.delete(`/gallery/${gallerid}/image`, {
+      data: { imageUrl },
     });
-  };
+    alert(response.data.message)}
+     setImages((prev) => prev.filter((_, index) => index !== indexToRemove));
+    
+    } catch (err) {
+      console.error('Failed to delete image from S3:', err);
+    }
+  } else {
+    // Cleanup new preview image
+    URL.revokeObjectURL(imageToRemove.preview);
+     setImages((prev) => prev.filter((_, index) => index !== indexToRemove));
+  }
+
+  // Remove from local state
+  // setImages((prev) => prev.filter((_, index) => index !== indexToRemove));
+};
+
+  
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -48,9 +103,23 @@ function GalleryForm({ onUpload, editItem }) {
     images.forEach(({ file }) => data.append('images', file));
 
     if (editItem) {
-      await API.patch(`/gallery/${editItem._id}`, data);
+      try{
+          const response = await API.patch(`/gallery/${editItem._id}`, data);
+         alert(response.data.message)
+      }
+      catch(err){
+        console.log(err)
+      }
+     
     } else {
-      await API.post('/gallery', data);
+      try{
+         const response = await API.post('/gallery', data);
+         
+      }
+      catch(err){
+        console.log(err)
+      }
+     
     }
 
     setFormData({ name: '', date: '', status: '', sizeSqFt: '', clientDetails: '' });
@@ -79,7 +148,7 @@ function GalleryForm({ onUpload, editItem }) {
             images.length == 0 
             ? 
             <img
-            src=''
+            
             alt={`Select Project Images`}
             style={{ width: '250px' }}
           />
