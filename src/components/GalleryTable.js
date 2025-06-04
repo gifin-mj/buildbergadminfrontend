@@ -34,7 +34,7 @@ function GalleryTable({ gallery, onUpdate, onEdit }) {
   };
 
   const handleImageDelete = async (galleryId, imageUrl) => {
-    const confirm=window.confirm("Are you Sure ?")
+    const confirm=window.confirm("Are you Sure want to delete?")
     if(confirm){
       const response= await API.delete(`/gallery/${galleryId}/image`, {
       data: { imageUrl },
