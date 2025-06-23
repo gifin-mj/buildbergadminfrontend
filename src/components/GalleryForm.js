@@ -23,7 +23,7 @@ function GalleryForm({ onUpload, editItem }) {
   // }, [editItem]);
   useEffect(() => {
   if (editItem) {
-    console.log(editItem);
+    // console.log(editItem);
     
     setFormData({
       galleryId:editItem._id,
@@ -190,7 +190,7 @@ function GalleryForm({ onUpload, editItem }) {
             ))}
           </div>
           </div>
-          <input type="file" title='Select Project Images ' required multiple accept="image/*" id='File1' onChange={handleImageChange} />
+          <input type="file" title='Select Project Images '  multiple accept="image/*" id='File1' onChange={handleImageChange} />
 
           <br/><br/><br/>
           
