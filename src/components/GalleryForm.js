@@ -64,12 +64,12 @@ function GalleryForm({ onUpload, editItem }) {
       
     const handleRemoveImage = async (indexToRemove) => {
     const imageToRemove = images[indexToRemove];
-    console.log(imageToRemove);
+    // console.log(imageToRemove);
   // If it's a previously uploaded image (from S3)
   if (imageToRemove.file === null) {
     try {
       const imageUrl = new URL(imageToRemove.preview);
-      const confirm=window.confirm("Are you Sure ?")
+      const confirm=window.confirm("Deleting Image... Are you Sure ?")
     if(confirm){
       const gallerid=formData.galleryId
       const response= await API.delete(`/gallery/${gallerid}/image`, {
@@ -81,7 +81,8 @@ function GalleryForm({ onUpload, editItem }) {
      
     
     } catch (err) {
-      console.error('Failed to delete image from S3:', err);
+      alert("Failed to delete image Try Again")
+      // console.error('Failed to delete image from S3:', err);
     }
   } else {
     // Cleanup new preview image
@@ -110,7 +111,8 @@ function GalleryForm({ onUpload, editItem }) {
          alert(response.data.message)
       }
       catch(err){
-        console.log(err)
+        alert(err.response.data.message)
+        // console.log(err)
       }
      
     } else {
@@ -119,7 +121,8 @@ function GalleryForm({ onUpload, editItem }) {
          alert(response.data.message)
       }
       catch(err){
-        console.log(err)
+        alert(err.response.data.message)
+        // console.log(err.response.data.message)
       }
      
     }
@@ -147,7 +150,7 @@ function GalleryForm({ onUpload, editItem }) {
           <br/><br/>
           <div className="image-preview-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
             {
-            images.length == 0 
+            images.length === 0 
             ? 
             <img
             
@@ -187,14 +190,14 @@ function GalleryForm({ onUpload, editItem }) {
             ))}
           </div>
           </div>
-          <input type="file" title='Select Project Images ' multiple accept="image/*" id='File1' onChange={handleImageChange} />
+          <input type="file" title='Select Project Images ' required multiple accept="image/*" id='File1' onChange={handleImageChange} />
 
           <br/><br/><br/>
           
           <div className='selectimagesubmit'>
           <input name="sizeSqFt" title='Enter the size of the project in Sqft' placeholder="Enter Project Size (SqFt)" value={formData.sizeSqFt} onChange={handleChange} required />
           <select name="status" title='Select the Status of the Project' value={formData.status} onChange={handleChange} required>
-            <option>Select Project Status</option>
+            <option value="">Select Project Status</option>
             <option value="Ongoing">Ongoing</option>
             <option value="Upcoming">Upcoming</option>
             <option value="Completed">Completed</option>

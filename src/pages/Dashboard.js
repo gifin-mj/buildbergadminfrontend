@@ -39,10 +39,10 @@ function Dashboard() {
   };
   const cardsview= <div className="card-options">
   <div className="card" onClick={() => { setEditItem(null); setView('form'); }}>
-    <h3>➕ Add New Gallery</h3>
+    <h3>➕ Add New Project</h3>
   </div>
   <div className="card" onClick={() => setView('table')}>
-    <h3>📁 View Gallery</h3>
+    <h3>📁 View Projects</h3>
   </div>
 </div>
 

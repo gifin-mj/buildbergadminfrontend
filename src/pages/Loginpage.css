@@ -18,7 +18,7 @@
 .logincontainer {
     width:350px ;
     height:450px ;
-    background: rgb(15, 15, 15);
+    background: rgb(37, 36, 36);
     color: #fff;
     padding: 2rem;
     display: flex;
@@ -93,7 +93,7 @@
 }
 
 .loginBtn:hover {
-    box-shadow: 0 0 10px #ff415d56;
+    box-shadow: 0 0 10px #ffffff56;
     transform: translate(-1% , 5%);
 }
 

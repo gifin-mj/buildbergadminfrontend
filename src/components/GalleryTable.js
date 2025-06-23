@@ -20,7 +20,7 @@ function GalleryTable({ gallery, onUpdate, onEdit }) {
 
   const handleDelete = async (id) => {
     try{
-      let confirm=window.confirm("Are You Sure Want to Delete ?")
+      let confirm=window.confirm("Are You Sure Want to Delete the Image ?")
       if(confirm){
        const response= await API.delete(`/gallery/${id}`);
        alert(response.data.message)
@@ -85,6 +85,7 @@ function GalleryTable({ gallery, onUpdate, onEdit }) {
 />
 
               <button
+              title='Delete Image Permanently'
                 onClick={() => handleImageDelete(row._id, url)}
                 style={{
                   position: 'absolute',
@@ -151,6 +152,8 @@ function GalleryTable({ gallery, onUpdate, onEdit }) {
       <img src={previewImage.url} alt="Preview" />
       <div className="modal-buttons">
         <button
+
+         title='Delete Image Permanently'
           onClick={() => {
             handleImageDelete(previewImage.galleryId, previewImage.url);
             setPreviewImage(null);

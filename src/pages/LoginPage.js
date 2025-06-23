@@ -23,7 +23,9 @@ function LoginPage() {
       setToken(res.data.token);
       navigate('/dashboard');
     } catch (err) {
-      alert('Login failed');
+      alert('Username or Password Incorrect');
+      setPassword('')
+      setUsername('')
     }
   };
 
